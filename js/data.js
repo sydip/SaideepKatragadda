@@ -1,0 +1,255 @@
+/* ==========================================================================
+   SITE DATA
+   Everything the site renders lives here. Edit this file to update content.
+   - `skills[].links` attaches each skill to the project(s) / roles that use it.
+     Ids must match a project `id` or an experience `id` below.
+   ========================================================================== */
+
+window.SITE = {
+  profile: {
+    name: "Saideep Katragadda",
+    first: "Saideep",
+    last: "Katragadda",
+    roles: [
+      "Software Engineer",
+      "Machine Learning Builder",
+      "Quantitative Developer",
+      "Undergraduate Researcher",
+      "Data Scientist",
+    ],
+    intro:
+      "Computer Science student at Texas A&M building full-stack analytics platforms, machine learning systems, and AI automation — from NBA Monte Carlo simulations to airline demand forecasting.",
+    location: "College Station, TX",
+    phone: "512-648-7227",
+    email: "sdkatragadda@gmail.com",
+    linkedin: "https://www.linkedin.com/in/saideep-katragadda-85907a2ba",
+    linkedinLabel: "linkedin.com/in/saideep-katragadda",
+    github: "https://github.com/sydip",
+    githubLabel: "github.com/sydip",
+  },
+
+  education: {
+    school: "Texas A&M University",
+    degree: "Bachelor of Science in Computer Science",
+    location: "College Station, TX",
+    dates: "Aug 2025 – May 2028 (expected)",
+    organizations: ["Aggie Data Science Club (ADSC)", "Maroon Investment Club"],
+    coursework: [
+      { code: "ENGR 102", name: "Python Computation" },
+      { code: "ISTM 209", name: "Business Information Systems Concepts" },
+      { code: "CSCE 222", name: "Discrete Structures" },
+      { code: "CSCE 120", name: "Program Design and Concepts" },
+      { name: "Data Structures and Algorithms" },
+      { name: "Principles of Statistics" },
+      { name: "Programming Languages" },
+    ],
+    certifications: [
+      "IT Specialist – Java (Certiport)",
+      "Microsoft Office Specialist – Word, Excel, PowerPoint, Access",
+    ],
+  },
+
+  experience: [
+    {
+      id: "american-airlines",
+      role: "Software Engineer Team Lead",
+      org: "American Airlines × ADSC",
+      location: "College Station, TX",
+      dates: "Oct 2026 – Present",
+      current: true,
+      summary: "Leading a team forecasting airline market demand for Network Planning.",
+      bullets: [
+        "Leading a <b>6-person team</b> to build a <b>time-series forecasting model</b> that predicts <b>airline market demand up to 2 years ahead</b> for American Airlines Network Planning, using GDD and demographic data.",
+        "Directing <b>feature engineering</b> and <b>regression analysis</b> to identify drivers of market demand, and overseeing backtesting against historical and test data at the <b>market, state, and entity level</b>.",
+      ],
+      tags: ["Time-Series", "Regression", "Feature Engineering", "Leadership"],
+    },
+    {
+      id: "research",
+      role: "Undergraduate Researcher",
+      org: "Texas A&M University",
+      location: "College Station, TX",
+      dates: "Sep 2026 – Present",
+      current: true,
+      summary: "Agent-based modeling of exoskeleton adoption in construction.",
+      bullets: [
+        "Conducting research on an empirically informed <b>agent-based model</b> in <b>Python</b> and <b>NetLogo</b> that simulates how construction workers and crews decide over time whether to adopt occupational exoskeletons.",
+        "Parameterizing the model from published literature and expert input, and running <b>simulation experiments</b> and <b>sensitivity analysis</b> to identify which factors drive long-term adoption versus discontinuation.",
+      ],
+      tags: ["Agent-Based Modeling", "NetLogo", "Simulation", "Sensitivity Analysis"],
+    },
+    {
+      id: "ufcu",
+      role: "Application Developer Intern",
+      org: "University Federal Credit Union (UFCU)",
+      location: "Austin, TX",
+      dates: "Jun 2026 – Aug 2026",
+      current: false,
+      summary: "AI automation agents and meeting intelligence inside Azure DevOps.",
+      bullets: [
+        "Built <b>AI-powered automation agents</b> in <b>Azure DevOps</b> for sprint management, backlog refinement, and work item tracking, plus a <b>meeting intelligence pipeline</b> that transcribed Microsoft Teams meetings and published AI-generated summaries with action items and decisions to project wikis.",
+        "Diagnosed and fixed failed lending requests in a banking loan <b>imaging API</b>, and built workflow automation with <b>Azure DevOps APIs</b> and <b>Azure cloud services</b> to cut manual project management work and improve documentation accuracy.",
+      ],
+      tags: ["Azure DevOps", "AI Agents", "APIs", "Automation"],
+    },
+    {
+      id: "maroon",
+      role: "Quantitative Developer",
+      org: "Maroon Investment Club",
+      location: "College Station, TX",
+      dates: "Mar 2026 – Present",
+      current: true,
+      summary: "ML trading signals during market dislocations.",
+      bullets: [
+        "Engineered a <b>dual-model XGBoost</b> classification system in Python to detect buy and sell opportunities during market dislocations, delivering a <b>36% backtested return</b> versus a <b>14% S&amp;P 500</b> benchmark.",
+        "Built a <b>feature-engineering pipeline</b> using RSI, VIX, moving averages, stochastic oscillators, and momentum indicators, and applied <b>SMOTE</b> class balancing with <b>walk-forward validation</b> to reduce overfitting and improve out-of-sample performance.",
+      ],
+      tags: ["XGBoost", "Quant Finance", "SMOTE", "Walk-Forward"],
+    },
+  ],
+
+  /* `theme` selects the themed transition + page surroundings (see transitions.js / style.css) */
+  projects: [
+    {
+      id: "courtvision",
+      theme: "basketball",
+      name: "CourtVision",
+      kicker: "NBA Analytics Platform",
+      dates: "Jun 2026 – Aug 2026",
+      tagline: "Full-stack NBA analytics with a random-forest prediction engine and Monte Carlo playoff simulation.",
+      stack: ["Python", "JavaScript", "TypeScript", "PostgreSQL", "FastAPI", "Next.js", "Docker"],
+      stats: [
+        { value: 131000, suffix: "+", label: "Player game logs" },
+        { value: 6151, label: "Games ingested" },
+        { value: 19, label: "Random-forest models" },
+        { value: 10000, label: "Monte Carlo runs" },
+        { value: 80, suffix: "%", label: "MVP/ROY top-3 hit rate" },
+        { value: 95, suffix: "%", label: "AI query routing" },
+      ],
+      bullets: [
+        "Built a full-stack NBA analytics platform (FastAPI, PostgreSQL, Next.js) ingesting <b>131,000+ player game logs</b> across <b>6,151 games</b> and <b>26 draft classes</b>, with raw-cached, validated, and resumable data pipelines.",
+        "Developed a <b>random-forest prediction engine with 19 models</b> and a <b>10,000-run Monte Carlo</b> Finals simulation, ranking the actual MVP and Rookie of the Year in the top 3 in <b>80% of backtested seasons</b>.",
+        "Reached <b>94+% player similarity modeling accuracy</b>, powering an AI basketball assistant with <b>95% query-routing accuracy</b> that turns statistical output into natural-language insights.",
+        "Delivered 10+ analytics features: performance trends, matchup splits, player comparisons, playoff analysis, draft evaluation, and roster tracking.",
+      ],
+    },
+    {
+      id: "senna",
+      theme: "f1",
+      name: "Senna",
+      kicker: "Formula 1 Telemetry Platform",
+      dates: "Jul 2026 – Aug 2026",
+      tagline: "Telemetry pipelines, tire-degradation forecasting, and an AI race engineer.",
+      stack: ["React", "TypeScript", "Python", "FastAPI", "Tailwind CSS"],
+      stats: [
+        { value: 93, suffix: "%", label: "Tire deg & lap pace accuracy" },
+        { value: 5, label: "Telemetry channels modeled" },
+        { text: "AI", label: "Race-engineer coaching" },
+      ],
+      bullets: [
+        "Designed a <b>Formula 1 analytics platform</b> that processes per-race telemetry to power interactive driver-performance and race-comparison dashboards.",
+        "Engineered <b>telemetry pipelines</b> and a predictive ML model using braking, throttle, speed, gear, and cornering data to forecast <b>tire degradation and lap pace with 93% accuracy</b>.",
+        "Integrated an <b>AI-powered race engineer</b> that converts validated telemetry into coaching insights, performance summaries, and race-strategy recommendations through scalable backend APIs.",
+      ],
+    },
+    {
+      id: "gridiron",
+      theme: "football",
+      name: "Gridiron",
+      kicker: "NFL Against-the-Spread Analytics",
+      dates: "Aug 2026 – Sep 2026",
+      tagline: "Leakage-safe NFL ATS modeling with walk-forward validation and a 737-test suite.",
+      stack: ["Python", "Pandas", "Scikit-Learn", "Seaborn", "FastAPI", "React", "TypeScript"],
+      stats: [
+        { value: 489000, suffix: "+", label: "Plays ingested" },
+        { value: 2911, label: "Games" },
+        { value: 737, label: "Tests" },
+        { value: 11, label: "Engineered features" },
+        { value: 1828, label: "Out-of-sample games" },
+        { value: 181, label: "Team-games recovered" },
+      ],
+      bullets: [
+        "Engineered a full-stack NFL against-the-spread analytics platform ingesting <b>489,000+ plays</b> across <b>2,911 games</b> with validated, idempotent pipelines and a <b>737-test suite</b> guaranteeing byte-identical served data.",
+        "Developed a <b>leakage-safe logistic-regression model</b> with <b>11 engineered features</b> (rolling offensive/defensive EPA, pace, rest, recent form, betting lines), validated via <b>7-fold walk-forward</b> testing on <b>1,828 out-of-sample games</b>.",
+        "Caught a silent data-join fault that had dropped <b>181 team-games</b> of EPA and pace data, and generated weekly matchup probabilities, confidence rankings, backtests, and seaborn reports.",
+      ],
+    },
+    {
+      id: "pixel-pathology",
+      theme: "pathology",
+      name: "Pixel Pathology",
+      kicker: "Interpretable Medical Imaging · ADSC",
+      dates: "Sep 2026 – Present",
+      tagline: "A CNN medical image classifier that shows its work with Grad-CAM heatmaps.",
+      stack: ["Python", "PyTorch", "TensorFlow", "CNNs", "Git/GitHub"],
+      stats: [
+        { text: "CNN", label: "Transfer-learned classifier" },
+        { text: "Grad-CAM", label: "Explainability" },
+        { text: "Transfer", label: "Learning strategy" },
+      ],
+      bullets: [
+        "Building an interpretable <b>CNN medical image classifier</b> in <b>PyTorch</b> using <b>transfer learning</b> and <b>data augmentation</b>.",
+        "Generating <b>Grad-CAM heatmaps</b> that highlight the image regions driving each prediction, so model decisions can be inspected.",
+        "Handling image preprocessing and augmentation, with <b>GitHub-based collaborative</b> model development across the ADSC team.",
+      ],
+    },
+    {
+      id: "cosmos",
+      theme: "space",
+      name: "Cosmos",
+      kicker: "NASA Knowledge Graph",
+      dates: "Mar 2026",
+      tagline: "An interactive spiral-galaxy knowledge graph of NASA exoplanets and missions, with an AI guide.",
+      stack: ["React", "Vite", "D3.js", "JavaScript", "HTML/CSS"],
+      stats: [
+        { value: 60, label: "FPS rendering" },
+        { text: "WebGL", label: "Canvas renderer" },
+        { text: "Stella", label: "AI guide" },
+      ],
+      bullets: [
+        "Developed an interactive knowledge-graph platform using <b>React, Vite, and D3 force simulations</b> to visualize NASA exoplanet and mission data in a dynamic spiral-galaxy layout.",
+        "Implemented <b>WebGL-accelerated canvas rendering</b> with react-force-graph-2d for force-directed nodes, animated star fields, and mission relationships at a smooth <b>60 FPS</b>.",
+        "Created <b>“Stella,”</b> an AI conversational guide with session memory that answers natural-language questions about exoplanets and NASA missions.",
+        "Engineered custom graph physics and coordinate mapping to balance galaxy aesthetics, collision resolution, and detail-panel positioning during real-time pan and zoom.",
+      ],
+    },
+  ],
+
+  /* Skill → where it's used. Add / refine freely; links can point at project ids or experience ids. */
+  skillCategories: ["Languages", "Frameworks & Libraries", "ML & Data", "Tools & Infrastructure"],
+  skills: [
+    { name: "Python", cat: "Languages", links: ["courtvision", "senna", "gridiron", "pixel-pathology", "maroon", "research"] },
+    { name: "TypeScript", cat: "Languages", links: ["courtvision", "senna", "gridiron"] },
+    { name: "JavaScript", cat: "Languages", links: ["courtvision", "cosmos"] },
+    { name: "SQL", cat: "Languages", links: ["courtvision"] },
+    { name: "HTML/CSS", cat: "Languages", links: ["cosmos"] },
+    { name: "Java", cat: "Languages", links: [], note: "Certiport IT Specialist – Java" },
+    { name: "C++", cat: "Languages", links: [], note: "CSCE 120 · Program Design and Concepts" },
+
+    { name: "React", cat: "Frameworks & Libraries", links: ["senna", "gridiron", "cosmos"] },
+    { name: "Next.js", cat: "Frameworks & Libraries", links: ["courtvision"] },
+    { name: "FastAPI", cat: "Frameworks & Libraries", links: ["courtvision", "senna", "gridiron"] },
+    { name: "Tailwind CSS", cat: "Frameworks & Libraries", links: ["senna"] },
+    { name: "D3.js", cat: "Frameworks & Libraries", links: ["cosmos"] },
+    { name: "Vite", cat: "Frameworks & Libraries", links: ["cosmos"] },
+
+    { name: "PyTorch / TensorFlow", cat: "ML & Data", links: ["pixel-pathology"] },
+    { name: "CNNs & Transfer Learning", cat: "ML & Data", links: ["pixel-pathology"] },
+    { name: "Scikit-Learn", cat: "ML & Data", links: ["courtvision", "gridiron"] },
+    { name: "XGBoost", cat: "ML & Data", links: ["maroon"] },
+    { name: "Pandas", cat: "ML & Data", links: ["gridiron", "courtvision", "american-airlines"] },
+    { name: "Seaborn", cat: "ML & Data", links: ["gridiron"] },
+    { name: "Monte Carlo Simulation", cat: "ML & Data", links: ["courtvision"] },
+    { name: "Time-Series Forecasting", cat: "ML & Data", links: ["american-airlines", "senna"] },
+    { name: "Walk-Forward Validation", cat: "ML & Data", links: ["gridiron", "maroon"] },
+    { name: "Agent-Based Modeling (NetLogo)", cat: "ML & Data", links: ["research"] },
+
+    { name: "PostgreSQL", cat: "Tools & Infrastructure", links: ["courtvision"] },
+    { name: "Docker", cat: "Tools & Infrastructure", links: ["courtvision"] },
+    { name: "Git / GitHub", cat: "Tools & Infrastructure", links: ["pixel-pathology", "gridiron", "courtvision"] },
+    { name: "Azure DevOps", cat: "Tools & Infrastructure", links: ["ufcu"] },
+    { name: "Postman", cat: "Tools & Infrastructure", links: ["ufcu"] },
+    { name: "VS Code", cat: "Tools & Infrastructure", links: [] },
+    { name: "Eclipse", cat: "Tools & Infrastructure", links: [] },
+  ],
+};

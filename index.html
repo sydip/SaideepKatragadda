@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saideep Katragadda</title>
+  <meta name="description" content="Saideep Katragadda — Computer Science at Texas A&M. Software engineering, machine learning, and analytics projects." />
+  <script>
+    // Apply saved theme before paint to avoid a flash
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("sk-theme"); } catch (e) {}
+      if (!t) t = "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Ambient water background -->
+  <div class="ambient" aria-hidden="true">
+    <div class="caustics"></div>
+    <canvas id="bubbles"></canvas>
+  </div>
+
+  <!-- Top navigation -->
+  <header class="topbar">
+    <a href="#/home" class="brand" data-nav>
+      <span class="brand-drop" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2.5C12 2.5 5 10.2 5 14.8a7 7 0 0 0 14 0C19 10.2 12 2.5 12 2.5z"/></svg>
+      </span>
+      <span class="brand-text">Saideep<span class="brand-dot">.</span></span>
+    </a>
+
+    <nav class="tabs" aria-label="Sections">
+      <div class="tab-blob" aria-hidden="true"></div>
+      <a href="#/home" data-tab="home">Home</a>
+      <a href="#/about" data-tab="about">About</a>
+      <a href="#/experience" data-tab="experience">Experience</a>
+      <a href="#/projects" data-tab="projects">Projects</a>
+      <a href="#/skills" data-tab="skills">Skills</a>
+      <a href="#/contact" data-tab="contact">Contact</a>
+    </nav>
+
+    <button class="theme-switch" id="themeSwitch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+      <span class="ts-track">
+        <span class="ts-waves" aria-hidden="true"></span>
+        <span class="ts-stars" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="ts-thumb">
+          <svg class="ts-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><g stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+          <svg class="ts-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        </span>
+      </span>
+    </button>
+  </header>
+
+  <!-- Routed views render here -->
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <!-- Full-screen transition overlay -->
+  <div id="transition" class="transition-layer" aria-hidden="true"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/transitions.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
