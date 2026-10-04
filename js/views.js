@@ -214,7 +214,7 @@
         <h3 class="pc-name">${p.name}</h3>
         <p class="pc-tag">${p.tagline}</p>
         <div class="chips small">${chips(p.stack.slice(0, 5))}</div>
-        <span class="pc-cta">Dive in ${I.arrow}</span>
+        <span class="pc-cta" aria-hidden="true">${I.arrow}</span>
       </div>
       <span class="pc-glare" aria-hidden="true"></span>
     </a>`;
@@ -241,10 +241,6 @@
             <span class="typer" data-words='${JSON.stringify(P.roles)}'></span><span class="caret"></span>
           </p>
           <p class="hero-intro reveal" style="--d:4">${P.intro}</p>
-          <div class="hero-cta reveal" style="--d:5">
-            <a class="btn primary" href="#/projects"><span>Explore projects</span>${I.arrow}</a>
-            <a class="btn ghost" href="#/contact"><span>Get in touch</span></a>
-          </div>
           <div class="hero-social reveal" style="--d:6">
             <a href="${P.github}" target="_blank" rel="noopener" aria-label="GitHub">${I.github}</a>
             <a href="${P.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${I.linkedin}</a>
@@ -253,41 +249,14 @@
           </div>
         </div>
 
-        <div class="hero-visual reveal" style="--d:2" aria-hidden="true">
+        <div class="hero-visual reveal" style="--d:2">
           <div class="orb-wrap" data-parallax>
-            <div class="orb-ring r1"></div>
-            <div class="orb-ring r2"></div>
-            <svg class="orb" viewBox="0 0 200 200">
-              <defs>
-                <clipPath id="orbClip"><circle cx="100" cy="100" r="84"/></clipPath>
-                <linearGradient id="orbWater" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" style="stop-color:var(--accent-2)"/>
-                  <stop offset="1" style="stop-color:var(--deep)"/>
-                </linearGradient>
-                <radialGradient id="orbGlass" cx=".35" cy=".3" r=".75">
-                  <stop offset="0" style="stop-color:#fff;stop-opacity:.75"/>
-                  <stop offset=".45" style="stop-color:#fff;stop-opacity:.06"/>
-                  <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-                </radialGradient>
-              </defs>
-              <circle cx="100" cy="100" r="84" class="orb-bg"/>
-              <text x="100" y="78" class="orb-text" text-anchor="middle">SK</text>
-              <g clip-path="url(#orbClip)">
-                <g class="orb-level">
-                  <path class="orb-wave w2" d="M0 104q25-10 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0V220H0z"/>
-                  <path class="orb-wave w1" d="M0 108q25-12 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0V220H0z" fill="url(#orbWater)"/>
-                </g>
-                <g class="orb-bubbles">
-                  <circle cx="70" cy="190" r="3"/><circle cx="110" cy="200" r="2"/><circle cx="135" cy="195" r="4"/><circle cx="90" cy="205" r="2.5"/>
-                </g>
-              </g>
-              <circle cx="100" cy="100" r="84" fill="url(#orbGlass)" class="orb-glass"/>
-              <circle cx="100" cy="100" r="84" class="orb-rim"/>
-            </svg>
-            <span class="float-tag t1">Machine Learning</span>
-            <span class="float-tag t2">Full-Stack</span>
-            <span class="float-tag t3">Quant</span>
-            <span class="float-tag t4">Research</span>
+            <div class="orb-ring r1" aria-hidden="true"></div>
+            <div class="orb-ring r2" aria-hidden="true"></div>
+            <button class="orb-btn" id="orbBtn" aria-label="Open navigation">
+              <canvas class="orb-canvas"></canvas>
+              <span class="orb-text">SK</span>
+            </button>
           </div>
         </div>
       </div>
@@ -414,7 +383,7 @@
 
   Views.projects = () => `
     <section class="page">
-      ${pageHead("03", "Projects", "Things I've built", "Every project has its own world — pick one and dive in.")}
+      ${pageHead("03", "Projects", "Things I've built", "Every project has its own world.")}
       <div class="proj-grid">${S.projects.map(projectCard).join("")}</div>
       ${footer()}
     </section>`;
@@ -455,7 +424,6 @@
               ? linked.map((s) => `<a class="chip themed link" href="#/skills/${encodeURIComponent(s.name)}">${s.name}</a>`).join("")
               : '<p class="muted">Detailed skills coming soon.</p>'
           }</div>
-          <p class="muted small-note">Tap a skill to see everywhere else it shows up.</p>
         </aside>
       </div>
 
@@ -503,7 +471,7 @@
 
     return `
     <section class="page">
-      ${pageHead("04", "Skills", "Every skill flows into a project", "Skills aren't just a list — each one is tied to the work where I used it. Switch views to explore from either side.")}
+      ${pageHead("04", "Skills", "Every skill flows into a project", "Skills aren't just a list — each one is tied to the work where I used it.")}
 
       <div class="seg reveal" role="tablist" aria-label="Skill view">
         <span class="seg-blob" aria-hidden="true"></span>

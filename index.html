@@ -26,25 +26,8 @@
     <canvas id="bubbles"></canvas>
   </div>
 
-  <!-- Top navigation -->
-  <header class="topbar">
-    <a href="#/home" class="brand" data-nav>
-      <span class="brand-drop" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M12 2.5C12 2.5 5 10.2 5 14.8a7 7 0 0 0 14 0C19 10.2 12 2.5 12 2.5z"/></svg>
-      </span>
-      <span class="brand-text">Saideep<span class="brand-dot">.</span></span>
-    </a>
-
-    <nav class="tabs" aria-label="Sections">
-      <div class="tab-blob" aria-hidden="true"></div>
-      <a href="#/home" data-tab="home">Home</a>
-      <a href="#/about" data-tab="about">About</a>
-      <a href="#/experience" data-tab="experience">Experience</a>
-      <a href="#/projects" data-tab="projects">Projects</a>
-      <a href="#/skills" data-tab="skills">Skills</a>
-      <a href="#/contact" data-tab="contact">Contact</a>
-    </nav>
-
+  <!-- Theme switch (top right) -->
+  <header class="dock">
     <button class="theme-switch" id="themeSwitch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
       <span class="ts-track">
         <span class="ts-waves" aria-hidden="true"></span>
@@ -57,6 +40,11 @@
     </button>
   </header>
 
+  <!-- Opens the water wheel from pages other than Home (Home uses the big orb) -->
+  <button class="fab-orb" id="menuBtn" aria-haspopup="dialog" aria-label="Open navigation">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0M12 7.5a4.5 4.5 0 1 1-4.5 4.5M12 3a9 9 0 1 1-9 9"/></svg>
+  </button>
+
   <!-- Routed views render here -->
   <main id="view" class="view" tabindex="-1"></main>
 
@@ -66,6 +54,7 @@
   <script src="js/data.js"></script>
   <script src="js/effects.js"></script>
   <script src="js/transitions.js"></script>
+  <script src="js/water.js"></script>
   <script src="js/views.js"></script>
   <script src="js/app.js"></script>
 </body>

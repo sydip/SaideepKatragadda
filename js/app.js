@@ -1,12 +1,10 @@
 /* ==========================================================================
-   APP — hash router, tab blob, theme switch, per-page wiring
+   APP — hash router, whirlpool nav, theme switch, per-page wiring
    ========================================================================== */
 (function () {
   const S = window.SITE;
   const view = document.getElementById("view");
-  const tabsEl = document.querySelector(".tabs");
-  const blob = tabsEl.querySelector(".tab-blob");
-  const tabLinks = [...tabsEl.querySelectorAll("a[data-tab]")];
+  const Vortex = window.Water.Vortex;
   const ORDER = ["home", "about", "experience", "projects", "skills", "contact"];
   const LABELS = { home: "Home", about: "About", experience: "Experience", projects: "Projects", skills: "Skills", contact: "Contact" };
   const reduce = window.Effects.reduce;
@@ -30,6 +28,8 @@
     document.title = `${p ? p.name : LABELS[route.tab]} · ${S.profile.name}`;
     const page = view.firstElementChild;
     Effects.hydrate(view);
+    const orb = view.querySelector("#orbBtn");
+    if (orb) Water.mountOrb(orb);
     hydrate(route);
     setTimeout(() => page && page.classList.add("entered"), 1700);
   }
@@ -46,15 +46,23 @@
   async function go() {
     if (busy) { queued = true; return; }
     const next = parse(location.hash);
-    if (current && next.key === current.key) return;
+    if (current && next.key === current.key) {
+      if (Vortex.isOpen()) { busy = true; await Vortex.drain(); busy = false; }
+      return;
+    }
     busy = true;
     const from = current;
     current = next;
-    moveBlob(next.tab);
+    document.body.dataset.route = next.tab;
     const swap = () => new Promise((res) => { render(next); requestAnimationFrame(() => res()); });
 
     try {
-      if (!from) {
+      if (Vortex.isOpen()) {
+        // chosen from the wheel: the wheel closes first, then the usual wave carries you to the tab
+        await Vortex.drain();
+        const t = pick(from, next);
+        await Transitions.run(t.type, swap, t.opts);
+      } else if (!from) {
         await Transitions.run("wave", swap, { startCovered: true, label: S.profile.first });
       } else if (from.tab === next.tab && !projectOf(from) && !projectOf(next)) {
         // same section, different focus — no full-screen transition
@@ -72,35 +80,21 @@
     if (queued) { queued = false; go(); }
   }
 
-  /* ---------------- Liquid tab blob ---------------- */
-  let blobPos = null;
-  function moveBlob(tab, instant) {
-    const a = tabLinks.find((t) => t.dataset.tab === tab);
-    tabLinks.forEach((t) => t.classList.toggle("active", t === a));
-    tabLinks.forEach((t) => (t === a ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current")));
-    if (!a) return;
-    const to = { left: a.offsetLeft, width: a.offsetWidth };
-    blob.style.left = to.left + "px";
-    blob.style.width = to.width + "px";
-    blob.style.opacity = 1;
-    if (blobPos && !instant && !reduce && blobPos.left !== to.left) {
-      const L = Math.min(blobPos.left, to.left), R = Math.max(blobPos.left + blobPos.width, to.left + to.width);
-      blob.animate(
-        [
-          { left: blobPos.left + "px", width: blobPos.width + "px" },
-          { left: L + "px", width: R - L + "px", offset: 0.45 },
-          { left: to.left + "px", width: to.width + "px" },
-        ],
-        { duration: 700, easing: "cubic-bezier(.65,0,.35,1)" }
-      );
-    }
-    blobPos = to;
-    if (tabsEl.scrollWidth > tabsEl.clientWidth) {
-      tabsEl.scrollTo({ left: to.left - tabsEl.clientWidth / 2 + to.width / 2, behavior: "smooth" });
-    }
+  /* ---------------- Whirlpool openers ---------------- */
+  function openFrom(elm, viaKeyboard) {
+    if (busy || Vortex.isOpen()) return;
+    const r = elm.getBoundingClientRect();
+    Vortex.open({ x: r.left + r.width / 2, y: r.top + r.height / 2, r: Math.min(r.width, r.height) / 2 }, viaKeyboard);
   }
-  window.addEventListener("resize", () => current && moveBlob(current.tab, true));
-  document.fonts && document.fonts.ready.then(() => current && moveBlob(current.tab, true));
+  // e.detail === 0 means the click came from the keyboard (Enter/Space)
+  document.getElementById("menuBtn").addEventListener("click", (e) => openFrom(e.currentTarget, e.detail === 0));
+  view.addEventListener("click", (e) => {
+    const orb = e.target.closest("#orbBtn");
+    if (orb) setTimeout(() => openFrom(orb, e.detail === 0), reduce ? 0 : 160); // let the splash land first
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key.toLowerCase() === "m" && !e.metaKey && !e.ctrlKey && !e.altKey && !/input|textarea/i.test(e.target.tagName)) openFrom(document.getElementById("orbBtn") || document.getElementById("menuBtn"), true);
+  });
 
   /* ---------------- Theme switch ---------------- */
   const sw = document.getElementById("themeSwitch");

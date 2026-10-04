@@ -34,7 +34,7 @@
      DEFAULT: rising / falling wave (vertical)
      ------------------------------------------------------------------ */
   async function wave(swap, { dir = 1, label = "", startCovered = false } = {}) {
-    const sheet = (n) => `<div class="tx-wl tx-l${n}"><div class="edge top"></div><div class="fill"></div><div class="edge bot"></div></div>`;
+    const sheet = (n) => `<div class="tx-wl tx-l${n}"><div class="crest"></div><div class="edge top"></div><div class="fill"></div><div class="edge bot"></div></div>`;
     const root = mount(`${sheet(1)}${sheet(2)}${sheet(3)}<div class="tx-mark">${label}</div>`, "tx-wave");
     const layers = [...root.querySelectorAll(".tx-wl")];
     const mark = root.querySelector(".tx-mark");
