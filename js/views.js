@@ -255,7 +255,6 @@
             <div class="orb-ring r2" aria-hidden="true"></div>
             <button class="orb-btn" id="orbBtn" aria-label="Open navigation">
               <canvas class="orb-canvas"></canvas>
-              <span class="orb-text">SK</span>
             </button>
           </div>
         </div>

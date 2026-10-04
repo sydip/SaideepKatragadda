@@ -37,9 +37,9 @@
   function pick(from, to) {
     const p = projectOf(to);
     if (p) return { type: p.theme, opts: {} };
-    if (projectOf(from)) return { type: "stream", opts: { dir: -1, label: LABELS[to.tab] } };
+    if (projectOf(from)) return { type: "stream", opts: { dir: -1 } };
     const dir = ORDER.indexOf(to.tab) >= ORDER.indexOf(from.tab) ? 1 : -1;
-    return { type: "wave", opts: { dir, label: LABELS[to.tab] } };
+    return { type: "wave", opts: { dir } };
   }
 
   let current = null, busy = false, queued = false;
@@ -63,7 +63,7 @@
         const t = pick(from, next);
         await Transitions.run(t.type, swap, t.opts);
       } else if (!from) {
-        await Transitions.run("wave", swap, { startCovered: true, label: S.profile.first });
+        await Transitions.run("wave", swap, { startCovered: true });
       } else if (from.tab === next.tab && !projectOf(from) && !projectOf(next)) {
         // same section, different focus — no full-screen transition
         await swap();

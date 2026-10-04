@@ -20,81 +20,32 @@
     layer.innerHTML = "";
   }
 
-  function spawnBubbles(root, n = 16) {
-    for (let i = 0; i < n; i++) {
-      const b = document.createElement("span");
-      const s = 6 + Math.random() * 22;
-      b.className = "tx-bubble";
-      b.style.cssText = `left:${Math.random() * 100}%;width:${s}px;height:${s}px;--dx:${(Math.random() - 0.5) * 80}px;animation-duration:${1 + Math.random() * 1.1}s;animation-delay:${Math.random() * 0.35}s`;
-      root.appendChild(b);
-    }
-  }
-
   /* ------------------------------------------------------------------
-     DEFAULT: rising / falling wave (vertical)
+     DEFAULT: a single wave sweeps across — the page changes as it passes
      ------------------------------------------------------------------ */
-  async function wave(swap, { dir = 1, label = "", startCovered = false } = {}) {
-    const sheet = (n) => `<div class="tx-wl tx-l${n}"><div class="crest"></div><div class="edge top"></div><div class="fill"></div><div class="edge bot"></div></div>`;
-    const root = mount(`${sheet(1)}${sheet(2)}${sheet(3)}<div class="tx-mark">${label}</div>`, "tx-wave");
-    const layers = [...root.querySelectorAll(".tx-wl")];
-    const mark = root.querySelector(".tx-mark");
+  async function wave(swap, { dir = 1, startCovered = false } = {}) {
+    const root = mount(`<div class="tx-wl tx-l2"><div class="crest"></div><div class="edge top"></div><div class="fill"></div><div class="edge bot"></div></div>`, "tx-wave");
+    const sheet = root.firstElementChild;
     const far = "calc(100vh + 110px)", nfar = "calc(-100vh - 110px)";
     const enter = dir > 0 ? far : nfar, leave = dir > 0 ? nfar : far;
-
-    if (startCovered) {
-      layers.forEach((l) => (l.style.transform = "translateY(0)"));
-    } else {
-      await Promise.all(
-        layers.map((l, i) =>
-          anim(l, [{ transform: `translateY(${enter})` }, { transform: "translateY(0)" }], { duration: 620, delay: i * 95, easing: "cubic-bezier(.55,0,.3,1)" })
-        )
-      );
-    }
-    spawnBubbles(root.querySelector(".tx-l3"), 18);
-    if (label) anim(mark, [{ opacity: 0, transform: "translate(-50%,-30%)", filter: "blur(8px)" }, { opacity: 1, transform: "translate(-50%,-50%)", filter: "blur(0)" }], { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" });
+    if (startCovered) sheet.style.transform = "translateY(0)";
+    else await anim(sheet, [{ transform: `translateY(${enter})` }, { transform: "translateY(0)" }], { duration: 520, easing: "cubic-bezier(.55,0,.45,1)" });
     await swap();
-    await wait(label ? 260 : 120);
-    if (label) anim(mark, [{ opacity: 1 }, { opacity: 0, transform: "translate(-50%,-70%)" }], { duration: 320 });
-    await Promise.all(
-      layers
-        .slice()
-        .reverse()
-        .map((l, i) =>
-          anim(l, [{ transform: "translateY(0)" }, { transform: `translateY(${leave})` }], { duration: 680, delay: 60 + i * 95, easing: "cubic-bezier(.6,0,.25,1)" })
-        )
-    );
+    await anim(sheet, [{ transform: "translateY(0)" }, { transform: `translateY(${leave})` }], { duration: 560, easing: "cubic-bezier(.55,0,.45,1)" });
     unmount();
   }
 
   /* ------------------------------------------------------------------
-     DEFAULT: horizontal stream (used when leaving a project world)
+     DEFAULT: the same single wave, sideways (used when leaving a project)
      ------------------------------------------------------------------ */
-  async function stream(swap, { dir = -1, label = "" } = {}) {
-    const sheet = (n) => `<div class="tx-sl tx-l${n}"><div class="edge tail"></div><div class="fill"></div><div class="edge lead"></div></div>`;
-    const root = mount(`${sheet(1)}${sheet(2)}${sheet(3)}<div class="tx-mark">${label}</div>`, "tx-stream");
-    const layers = [...root.querySelectorAll(".tx-sl")];
-    const mark = root.querySelector(".tx-mark");
-    // dir -1 → flows right-to-left, dir 1 → left-to-right
+  async function stream(swap, { dir = -1 } = {}) {
+    const root = mount(`<div class="tx-sl tx-l2"><div class="edge tail"></div><div class="fill"></div><div class="edge lead"></div></div>`, "tx-stream");
+    const sheet = root.firstElementChild;
     const far = "calc(100vw + 110px)", nfar = "calc(-100vw - 110px)";
     const enter = dir > 0 ? nfar : far, leave = dir > 0 ? far : nfar;
-    await Promise.all(
-      layers.map((l, i) =>
-        anim(l, [{ transform: `translateX(${enter})` }, { transform: "translateX(0)" }], { duration: 600, delay: i * 90, easing: "cubic-bezier(.55,0,.3,1)" })
-      )
-    );
-    spawnBubbles(root.querySelector(".tx-l3"), 14);
-    if (label) anim(mark, [{ opacity: 0, transform: "translate(-40%,-50%)", filter: "blur(8px)" }, { opacity: 1, transform: "translate(-50%,-50%)", filter: "blur(0)" }], { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" });
+    await anim(sheet, [{ transform: `translateX(${enter})` }, { transform: "translateX(0)" }], { duration: 520, easing: "cubic-bezier(.55,0,.45,1)" });
     await swap();
-    await wait(label ? 260 : 120);
-    if (label) anim(mark, [{ opacity: 1 }, { opacity: 0, transform: "translate(-60%,-50%)" }], { duration: 300 });
-    await Promise.all(
-      layers
-        .slice()
-        .reverse()
-        .map((l, i) =>
-          anim(l, [{ transform: "translateX(0)" }, { transform: `translateX(${leave})` }], { duration: 660, delay: 60 + i * 90, easing: "cubic-bezier(.6,0,.25,1)" })
-        )
-    );
+    await anim(sheet, [{ transform: "translateX(0)" }, { transform: `translateX(${leave})` }], { duration: 560, easing: "cubic-bezier(.55,0,.45,1)" });
     unmount();
   }
 
