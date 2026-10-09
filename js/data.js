@@ -26,6 +26,12 @@ window.SITE = {
     linkedinLabel: "linkedin.com/in/saideep-katragadda",
     github: "https://github.com/sydip",
     githubLabel: "github.com/sydip",
+    resume: "assets/Saideep_Katragadda_Resume.pdf",
+    // the About tab's opening paragraph
+    about:
+      "I'm a Computer Science student at Texas A&amp;M University, building software for full-stack engineering and machine learning. Right now I'm leading a team forecasting airline demand for American Airlines, researching exoskeleton adoption, and building ML trading models. I also love sports, which drives my NBA and NFL analytics projects.",
+    // typed (and deleted) one after another on the home screen, after "Building as a"
+    buildingAs: ["Software Engineer", "Machine Learning Engineer", "Full-Stack Developer"],
   },
 
   education: {
@@ -36,12 +42,13 @@ window.SITE = {
     organizations: ["Aggie Data Science Club (ADSC)", "Maroon Investment Club"],
     coursework: [
       { code: "ENGR 102", name: "Python Computation" },
-      { code: "ISTM 209", name: "Business Information Systems Concepts" },
+      { code: "ISTM 209", name: "Information Systems Concepts" },
       { code: "CSCE 222", name: "Discrete Structures" },
       { code: "CSCE 120", name: "Program Design and Concepts" },
-      { name: "Data Structures and Algorithms" },
-      { name: "Principles of Statistics" },
-      { name: "Programming Languages" },
+      { code: "CSCE 221", name: "Data Structures and Algorithms" },
+      { code: "STAT 211", name: "Principles of Statistics" },
+      { code: "CSCE 314", name: "Programming Languages" },
+      { code: "MATH 304", name: "Linear Algebra" },
     ],
     certifications: [
       "IT Specialist – Java (Certiport)",
@@ -59,10 +66,9 @@ window.SITE = {
       current: true,
       summary: "Leading a team forecasting airline market demand for Network Planning.",
       bullets: [
-        "Leading a <b>6-person team</b> to build a <b>time-series forecasting model</b> that predicts <b>airline market demand up to 2 years ahead</b> for American Airlines Network Planning, using GDD and demographic data.",
-        "Directing <b>feature engineering</b> and <b>regression analysis</b> to identify drivers of market demand, and overseeing backtesting against historical and test data at the <b>market, state, and entity level</b>.",
+        "Leading a <b>team of 6</b> working with <b>American Airlines</b> to predict how many people will want to fly to different places <b>up to two years ahead</b>, to help the airline's route-planning team.",
+        "Guiding the team on which factors, like regional and population trends, drive travel demand, and checking our predictions against what actually happened in past years.",
       ],
-      tags: ["Time-Series", "Regression", "Feature Engineering", "Leadership"],
     },
     {
       id: "research",
@@ -73,10 +79,9 @@ window.SITE = {
       current: true,
       summary: "Agent-based modeling of exoskeleton adoption in construction.",
       bullets: [
-        "Conducting research on an empirically informed <b>agent-based model</b> in <b>Python</b> and <b>NetLogo</b> that simulates how construction workers and crews decide over time whether to adopt occupational exoskeletons.",
-        "Parameterizing the model from published literature and expert input, and running <b>simulation experiments</b> and <b>sensitivity analysis</b> to identify which factors drive long-term adoption versus discontinuation.",
+        "Building a <b>computer simulation</b> of how construction workers and crews decide whether to start, and keep, using <b>wearable exoskeletons</b>: assistive suits that reduce physical strain on the job.",
+        "Basing the simulation on published studies and expert input, then testing it to find <b>what makes workers stick with the technology</b> or give it up.",
       ],
-      tags: ["Agent-Based Modeling", "NetLogo", "Simulation", "Sensitivity Analysis"],
     },
     {
       id: "ufcu",
@@ -87,10 +92,9 @@ window.SITE = {
       current: false,
       summary: "AI automation agents and meeting intelligence inside Azure DevOps.",
       bullets: [
-        "Built <b>AI-powered automation agents</b> in <b>Azure DevOps</b> for sprint management, backlog refinement, and work item tracking, plus a <b>meeting intelligence pipeline</b> that transcribed Microsoft Teams meetings and published AI-generated summaries with action items and decisions to project wikis.",
-        "Diagnosed and fixed failed lending requests in a banking loan <b>imaging API</b>, and built workflow automation with <b>Azure DevOps APIs</b> and <b>Azure cloud services</b> to cut manual project management work and improve documentation accuracy.",
+        "Built <b>AI assistants</b> that took over routine project-management work for software teams, and a tool that turned <b>Microsoft Teams meetings</b> into written summaries of decisions and next steps.",
+        "Fixed an issue that was causing some <b>loan requests to fail</b>, and automated manual project-tracking work to save the team time and keep records accurate.",
       ],
-      tags: ["Azure DevOps", "AI Agents", "APIs", "Automation"],
     },
     {
       id: "maroon",
@@ -101,18 +105,16 @@ window.SITE = {
       current: true,
       summary: "ML trading signals during market dislocations.",
       bullets: [
-        "Engineered a <b>dual-model XGBoost</b> classification system in Python to detect buy and sell opportunities during market dislocations, delivering a <b>36% backtested return</b> versus a <b>14% S&amp;P 500</b> benchmark.",
-        "Built a <b>feature-engineering pipeline</b> using RSI, VIX, moving averages, stochastic oscillators, and momentum indicators, and applied <b>SMOTE</b> class balancing with <b>walk-forward validation</b> to reduce overfitting and improve out-of-sample performance.",
+        "Built a <b>machine-learning tool</b> that spots good moments to buy and sell stocks when the market swings sharply, designed to keep working on new data, not just the history it learned from.",
+        "Tested on past market data, it earned a <b>36% return</b>, compared with <b>14% for the S&amp;P 500</b>.",
       ],
-      tags: ["XGBoost", "Quant Finance", "SMOTE", "Walk-Forward"],
     },
   ],
 
-  /* `theme` selects the themed transition + page surroundings (see transitions.js / style.css) */
   projects: [
     {
       id: "courtvision",
-      theme: "basketball",
+      github: "https://github.com/sydip/CourtVision",
       name: "CourtVision",
       kicker: "NBA Analytics Platform",
       dates: "Jun 2026 – Aug 2026",
@@ -135,7 +137,7 @@ window.SITE = {
     },
     {
       id: "senna",
-      theme: "f1",
+      github: "", // paste the repo URL here
       name: "Senna",
       kicker: "Formula 1 Telemetry Platform",
       dates: "Jul 2026 – Aug 2026",
@@ -154,7 +156,7 @@ window.SITE = {
     },
     {
       id: "gridiron",
-      theme: "football",
+      github: "https://github.com/sydip/Gridiron",
       name: "Gridiron",
       kicker: "NFL Against-the-Spread Analytics",
       dates: "Aug 2026 – Sep 2026",
@@ -176,7 +178,7 @@ window.SITE = {
     },
     {
       id: "pixel-pathology",
-      theme: "pathology",
+      github: "https://github.com/TAMU-Aggie-Data-Science-Club/fall2026-pixel-pathology",
       name: "Pixel Pathology",
       kicker: "Interpretable Medical Imaging · ADSC",
       dates: "Sep 2026 – Present",
@@ -195,7 +197,7 @@ window.SITE = {
     },
     {
       id: "cosmos",
-      theme: "space",
+      github: "https://github.com/Pri1s/cosmos",
       name: "Cosmos",
       kicker: "NASA Knowledge Graph",
       dates: "Mar 2026",
@@ -213,6 +215,61 @@ window.SITE = {
         "Engineered custom graph physics and coordinate mapping to balance galaxy aesthetics, collision resolution, and detail-panel positioning during real-time pan and zoom.",
       ],
     },
+    {
+      id: "portfolio",
+      github: "https://github.com/sydip/SaideepKatragadda",
+      name: "Portfolio",
+      kicker: "Interactive Portfolio Website",
+      dates: "Oct 2026",
+      tagline: "This site: a low-poly wireframe head, a clickable skills brain and tabbed pages, built from scratch with HTML, CSS and canvas.",
+      stack: ["JavaScript", "HTML/CSS", "Canvas 2D", "GitHub Pages"],
+      stats: [
+        { value: 60, label: "FPS animation" },
+        { text: "0", label: "Frameworks or build step" },
+      ],
+      bullets: [
+        "Built a single-page portfolio in <b>vanilla JavaScript, HTML and CSS</b> with no framework or build step, deployed on <b>GitHub Pages</b>.",
+        "Procedurally generated a <b>low-poly wireframe head</b> and a <b>clickable brain</b> of skills (Delaunay triangulation), rendered on <b>Canvas 2D</b> at 60 FPS.",
+        "Drew an animated <b>circuit-trace background</b> behind every tab, cut away wherever the head's mesh sits.",
+      ],
+    },
+  ],
+
+  /* Skills tab: the brain's six regions, one per category. Everything in the resume's Technical Skills
+     section (except the certifications), plus the skills that come up across several projects or roles and the ones a project is
+     built on (XGBoost, D3.js…). */
+  skillBrain: [
+    { id: "ml", name: "Machine Learning & AI", region: "Frontal lobe", note: "reasoning and prediction",
+      skills: ["Scikit-Learn", "PyTorch / TensorFlow", "XGBoost", "Time-Series Forecasting", "Walk-Forward Validation", "LLM APIs (Claude / Gemini)"] },
+    { id: "languages", name: "Languages", region: "Parietal lobe", note: "language and symbols",
+      skills: ["Python", "Java", "C++", "TypeScript", "JavaScript", "SQL", "HTML/CSS"] },
+    { id: "frontend", name: "Frontend", region: "Occipital lobe", note: "vision",
+      skills: ["React", "Next.js", "Tailwind CSS", "D3.js", "Recharts", "Vite"] },
+    { id: "data", name: "Data & Simulation", region: "Temporal lobe", note: "memory",
+      skills: ["Pandas", "NumPy", "Seaborn", "Monte Carlo Simulation", "Agent-Based Modeling (NetLogo)"] },
+    { id: "tools", name: "Tools & Testing", region: "Cerebellum", note: "coordination",
+      skills: ["Git / GitHub", "Azure DevOps", "pytest", "Vitest", "VS Code", "Eclipse"] },
+    { id: "backend", name: "Backend", region: "Brainstem", note: "the backbone everything runs through",
+      skills: ["FastAPI", "PostgreSQL", "Docker", "Postman"] },
+  ],
+
+  /* Skills section: how the skills are grouped around the hologram head.
+     A skill can sit in more than one domain; any skill left out lands in "Other". */
+  skillDomains: [
+    { id: "ml", name: "Machine Learning & AI", icon: "brain", blurb: "Models that learn, forecast and explain themselves.",
+      skills: ["PyTorch / TensorFlow", "CNNs & Transfer Learning", "Scikit-Learn", "XGBoost", "Time-Series Forecasting", "Walk-Forward Validation", "LLM APIs (Claude / Gemini)", "joblib"] },
+    { id: "data", name: "Data Science & Analytics", icon: "chart", blurb: "Cleaning, modeling and simulating real-world data.",
+      skills: ["Python", "Pandas", "NumPy", "SQL", "Matplotlib", "Seaborn", "Monte Carlo Simulation", "Agent-Based Modeling (NetLogo)", "Plotly"] },
+    { id: "backend", name: "Backend", icon: "server", blurb: "APIs, data pipelines and the databases behind them.",
+      skills: ["Python", "FastAPI", "Pydantic", "SQLAlchemy / Alembic", "PostgreSQL", "SQL", "Java", "C++"] },
+    { id: "frontend", name: "Frontend", icon: "window", blurb: "Interactive interfaces and data visualization.",
+      skills: ["JavaScript", "TypeScript", "React", "HTML/CSS", "Tailwind CSS", "D3.js", "Recharts", "Plotly", "TanStack Query", "Zustand", "Vite"] },
+    { id: "fullstack", name: "Full Stack", icon: "layers", blurb: "End-to-end apps, from the database to the browser.",
+      skills: ["Next.js", "React", "TypeScript", "FastAPI", "PostgreSQL", "OpenAPI / openapi-typescript", "TanStack Query", "Docker"] },
+    { id: "devops", name: "DevOps & Tooling", icon: "terminal", blurb: "Shipping, testing and collaborating on code.",
+      skills: ["Git / GitHub", "Docker", "Azure DevOps", "Postman", "VS Code", "Eclipse"] },
+    { id: "testing", name: "Testing & Quality", icon: "check", blurb: "Tests, types and linting that keep code honest.",
+      skills: ["pytest", "Hypothesis", "Vitest", "Testing Library", "Playwright", "Load Testing (k6 / Locust)", "mypy", "Ruff", "ESLint", "Prettier"] },
   ],
 
   /* Skill → where it's used. Add / refine freely; links can point at project ids or experience ids. */
@@ -220,25 +277,36 @@ window.SITE = {
   skills: [
     { name: "Python", cat: "Languages", links: ["courtvision", "senna", "gridiron", "pixel-pathology", "maroon", "research"] },
     { name: "TypeScript", cat: "Languages", links: ["courtvision", "senna", "gridiron"] },
-    { name: "JavaScript", cat: "Languages", links: ["courtvision", "cosmos"] },
+    { name: "JavaScript", cat: "Languages", links: ["courtvision", "cosmos", "portfolio"] },
     { name: "SQL", cat: "Languages", links: ["courtvision"] },
-    { name: "HTML/CSS", cat: "Languages", links: ["cosmos"] },
+    { name: "HTML/CSS", cat: "Languages", links: ["cosmos", "portfolio"] },
     { name: "Java", cat: "Languages", links: [], note: "Certiport IT Specialist – Java" },
     { name: "C++", cat: "Languages", links: [], note: "CSCE 120 · Program Design and Concepts" },
 
-    { name: "React", cat: "Frameworks & Libraries", links: ["senna", "gridiron", "cosmos"] },
+    { name: "React", cat: "Frameworks & Libraries", links: ["courtvision", "senna", "gridiron", "cosmos"] },
     { name: "Next.js", cat: "Frameworks & Libraries", links: ["courtvision"] },
     { name: "FastAPI", cat: "Frameworks & Libraries", links: ["courtvision", "senna", "gridiron"] },
-    { name: "Tailwind CSS", cat: "Frameworks & Libraries", links: ["senna"] },
+    { name: "Tailwind CSS", cat: "Frameworks & Libraries", links: ["courtvision", "senna", "gridiron"] },
+    { name: "Pydantic", cat: "Frameworks & Libraries", links: ["courtvision"] },
     { name: "D3.js", cat: "Frameworks & Libraries", links: ["cosmos"] },
-    { name: "Vite", cat: "Frameworks & Libraries", links: ["cosmos"] },
+    { name: "Recharts", cat: "Frameworks & Libraries", links: ["courtvision", "gridiron"] },
+    { name: "SQLAlchemy / Alembic", cat: "Frameworks & Libraries", links: ["courtvision"] },
+    { name: "Vite", cat: "Frameworks & Libraries", links: ["cosmos", "gridiron"] },
+    { name: "Plotly", cat: "Frameworks & Libraries", links: [] },
+    { name: "TanStack Query", cat: "Frameworks & Libraries", links: ["courtvision"] },
+    { name: "Zustand", cat: "Frameworks & Libraries", links: [] },
+    { name: "OpenAPI / openapi-typescript", cat: "Frameworks & Libraries", links: [] },
 
     { name: "PyTorch / TensorFlow", cat: "ML & Data", links: ["pixel-pathology"] },
     { name: "CNNs & Transfer Learning", cat: "ML & Data", links: ["pixel-pathology"] },
     { name: "Scikit-Learn", cat: "ML & Data", links: ["courtvision", "gridiron"] },
+    { name: "NumPy", cat: "ML & Data", links: ["courtvision", "gridiron"] },
+    { name: "joblib", cat: "ML & Data", links: ["courtvision", "gridiron"] },
     { name: "XGBoost", cat: "ML & Data", links: ["maroon"] },
     { name: "Pandas", cat: "ML & Data", links: ["gridiron", "courtvision", "american-airlines"] },
+    { name: "Matplotlib", cat: "ML & Data", links: ["gridiron"] },
     { name: "Seaborn", cat: "ML & Data", links: ["gridiron"] },
+    { name: "LLM APIs (Claude / Gemini)", cat: "ML & Data", links: ["courtvision", "cosmos"] },
     { name: "Monte Carlo Simulation", cat: "ML & Data", links: ["courtvision"] },
     { name: "Time-Series Forecasting", cat: "ML & Data", links: ["american-airlines", "senna"] },
     { name: "Walk-Forward Validation", cat: "ML & Data", links: ["gridiron", "maroon"] },
@@ -246,9 +314,19 @@ window.SITE = {
 
     { name: "PostgreSQL", cat: "Tools & Infrastructure", links: ["courtvision"] },
     { name: "Docker", cat: "Tools & Infrastructure", links: ["courtvision"] },
-    { name: "Git / GitHub", cat: "Tools & Infrastructure", links: ["pixel-pathology", "gridiron", "courtvision"] },
+    { name: "Git / GitHub", cat: "Tools & Infrastructure", links: ["pixel-pathology", "gridiron", "courtvision", "portfolio"] },
     { name: "Azure DevOps", cat: "Tools & Infrastructure", links: ["ufcu"] },
     { name: "Postman", cat: "Tools & Infrastructure", links: ["ufcu"] },
+    { name: "pytest", cat: "Tools & Infrastructure", links: ["courtvision", "gridiron"] },
+    { name: "Vitest", cat: "Tools & Infrastructure", links: ["courtvision", "cosmos"] },
+    { name: "Prettier", cat: "Tools & Infrastructure", links: ["courtvision"] },
+    { name: "ESLint", cat: "Tools & Infrastructure", links: ["courtvision", "cosmos"] },
+    { name: "Ruff", cat: "Tools & Infrastructure", links: ["courtvision", "gridiron"] },
+    { name: "mypy", cat: "Tools & Infrastructure", links: ["courtvision"] },
+    { name: "Hypothesis", cat: "Tools & Infrastructure", links: [] },
+    { name: "Testing Library", cat: "Tools & Infrastructure", links: ["courtvision"] },
+    { name: "Playwright", cat: "Tools & Infrastructure", links: ["courtvision"] },
+    { name: "Load Testing (k6 / Locust)", cat: "Tools & Infrastructure", links: [] },
     { name: "VS Code", cat: "Tools & Infrastructure", links: [] },
     { name: "Eclipse", cat: "Tools & Infrastructure", links: [] },
   ],

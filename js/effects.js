@@ -1,80 +1,8 @@
 /* ==========================================================================
-   EFFECTS — ambient bubbles, click ripples, reveals, counters, typer, tilt
+   EFFECTS — reveals, counters, typer, tilt
    ========================================================================== */
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-
-  /* ---------- Ambient bubbles canvas ---------- */
-  const Bubbles = (() => {
-    const cv = document.getElementById("bubbles");
-    const ctx = cv.getContext("2d");
-    let w, h, dpr, items = [], color = "#0891b2", running = true, mx = 0, my = 0;
-
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = cv.clientWidth; h = cv.clientHeight;
-      cv.width = w * dpr; cv.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round(Math.min(46, (w * h) / 32000));
-      items = Array.from({ length: count }, () => spawn(true));
-    }
-    function spawn(anywhere) {
-      const r = Math.random() ** 2 * 9 + 1.5;
-      return {
-        x: Math.random() * w,
-        y: anywhere ? Math.random() * h : h + 20 + Math.random() * 60,
-        r,
-        vy: 0.15 + r * 0.045 + Math.random() * 0.2,
-        phase: Math.random() * Math.PI * 2,
-        amp: 0.3 + Math.random() * 0.6,
-        depth: 0.3 + Math.random() * 0.7,
-      };
-    }
-    function refreshColor() { color = css("--accent") || color; }
-    function frame(t) {
-      if (!running) return;
-      ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = color;
-      ctx.fillStyle = color;
-      for (const b of items) {
-        b.y -= b.vy;
-        b.x += Math.sin(t / 1400 + b.phase) * b.amp * 0.4;
-        if (b.y < -20) Object.assign(b, spawn(false));
-        const px = b.x + mx * 14 * b.depth, py = b.y + my * 10 * b.depth;
-        ctx.globalAlpha = 0.12 + b.depth * 0.18;
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.arc(px, py, b.r, 0, Math.PI * 2); ctx.stroke();
-        ctx.globalAlpha *= 0.35;
-        ctx.beginPath(); ctx.arc(px - b.r * 0.35, py - b.r * 0.35, b.r * 0.3, 0, Math.PI * 2); ctx.fill();
-      }
-      requestAnimationFrame(frame);
-    }
-    window.addEventListener("resize", resize);
-    window.addEventListener("pointermove", (e) => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; }, { passive: true });
-    document.addEventListener("visibilitychange", () => {
-      running = !document.hidden;
-      if (running) requestAnimationFrame(frame);
-    });
-    resize(); refreshColor();
-    if (!reduce) requestAnimationFrame(frame);
-    return { refreshColor };
-  })();
-
-  /* ---------- Click ripples ---------- */
-  window.lastPointer = { x: innerWidth / 2, y: innerHeight / 2 };
-  document.addEventListener("pointerdown", (e) => {
-    window.lastPointer = { x: e.clientX, y: e.clientY };
-    if (reduce || e.pointerType === "touch" && e.isPrimary === false) return;
-    for (const cls of ["ripple", "ripple r2"]) {
-      const r = document.createElement("span");
-      r.className = cls;
-      r.style.left = e.clientX + "px";
-      r.style.top = e.clientY + "px";
-      document.body.appendChild(r);
-      r.addEventListener("animationend", () => r.remove());
-    }
-  });
 
   /* ---------- Scroll reveal ---------- */
   let io;
@@ -158,7 +86,6 @@
 
   window.Effects = {
     reduce,
-    refreshColors: () => Bubbles.refreshColor(),
     hydrate(root) {
       observeReveals(root);
       initCounters(root);

@@ -1,76 +1,55 @@
 /* ==========================================================================
-   APP — hash router, whirlpool nav, theme switch, per-page wiring
+   APP — separate tabs, each its own page with its own scroll.
+   Hash routes:  #/home  #/about  #/experience  #/projects  #/skills  #/contact
+                 #/experience/<id> → that tab, with that role highlighted
+                 #/projects/<id>   → that tab, with that project's pop-up open
+   Switching tabs fades from one to the next (see transitions.js).
    ========================================================================== */
 (function () {
   const S = window.SITE;
   const view = document.getElementById("view");
-  const Vortex = window.Water.Vortex;
   const ORDER = ["home", "about", "experience", "projects", "skills", "contact"];
   const LABELS = { home: "Home", about: "About", experience: "Experience", projects: "Projects", skills: "Skills", contact: "Contact" };
   const reduce = window.Effects.reduce;
+  const Scene = window.Scene;
 
   /* ---------------- Routing ---------------- */
   function parse(hash) {
     const parts = (hash || "").replace(/^#\/?/, "").split("/").filter(Boolean);
     const tab = ORDER.includes(parts[0]) ? parts[0] : "home";
     const sub = parts.length > 1 ? decodeURIComponent(parts.slice(1).join("/")) : null;
-    return { tab, sub, key: tab + "/" + (sub || "") };
+    return { tab, sub };
   }
-  const projectOf = (r) => (r && r.tab === "projects" && r.sub ? S.projects.find((p) => p.id === r.sub) : null);
 
   function render(route) {
-    const p = projectOf(route);
-    if (p) view.innerHTML = Views.project(p.id);
-    else if (route.tab === "skills") view.innerHTML = Views.skills(route.sub);
-    else view.innerHTML = (Views[route.tab] || Views.notFound)();
-
+    view.innerHTML = Views.tab(route.tab);
     window.scrollTo({ top: 0, behavior: "instant" });
-    document.title = `${p ? p.name : LABELS[route.tab]} · ${S.profile.name}`;
-    const page = view.firstElementChild;
+    document.title = route.tab === "home" ? S.profile.name : `${LABELS[route.tab]} · ${S.profile.name}`;
+    document.body.dataset.route = route.tab;
     Effects.hydrate(view);
-    const orb = view.querySelector("#orbBtn");
-    if (orb) Water.mountOrb(orb);
-    hydrate(route);
+    wire();
+    Scene.attach(route.tab === "home" ? view.querySelector(".head-anchor") : null);
+    SkillBrain.mount(route.tab === "skills" ? view.querySelector(".brain-stage") : null, openSkills);
+    showTab(route.tab);
+    const page = view.firstElementChild;
     setTimeout(() => page && page.classList.add("entered"), 1700);
   }
 
-  function pick(from, to) {
-    const p = projectOf(to);
-    if (p) return { type: p.theme, opts: {} };
-    if (projectOf(from)) return { type: "stream", opts: { dir: -1 } };
-    const dir = ORDER.indexOf(to.tab) >= ORDER.indexOf(from.tab) ? 1 : -1;
-    return { type: "wave", opts: { dir } };
-  }
-
+  /* ---------------- Navigation ---------------- */
   let current = null, busy = false, queued = false;
   async function go() {
     if (busy) { queued = true; return; }
     const next = parse(location.hash);
-    if (current && next.key === current.key) {
-      if (Vortex.isOpen()) { busy = true; await Vortex.drain(); busy = false; }
-      return;
-    }
+    // same tab, different detail (a role or a project): no transition
+    if (current && next.tab === current.tab) { current = next; afterArrive(next); return; }
     busy = true;
-    const from = current;
+    const first = !current;
     current = next;
-    document.body.dataset.route = next.tab;
-    const swap = () => new Promise((res) => { render(next); requestAnimationFrame(() => res()); });
-
+    closeProject();
     try {
-      if (Vortex.isOpen()) {
-        // chosen from the wheel: the wheel closes first, then the usual wave carries you to the tab
-        await Vortex.drain();
-        const t = pick(from, next);
-        await Transitions.run(t.type, swap, t.opts);
-      } else if (!from) {
-        await Transitions.run("wave", swap, { startCovered: true });
-      } else if (from.tab === next.tab && !projectOf(from) && !projectOf(next)) {
-        // same section, different focus — no full-screen transition
-        await swap();
-      } else {
-        const t = pick(from, next);
-        await Transitions.run(t.type, swap, t.opts);
-      }
+      const swap = () => new Promise((res) => { render(next); requestAnimationFrame(() => res()); });
+      await Transitions.run(swap, { startCovered: first });
+      afterArrive(next);
     } catch (err) {
       console.error(err);
       document.getElementById("transition").className = "transition-layer";
@@ -80,64 +59,86 @@
     if (queued) { queued = false; go(); }
   }
 
-  /* ---------------- Whirlpool openers ---------------- */
-  function openFrom(elm, viaKeyboard) {
-    if (busy || Vortex.isOpen()) return;
-    const r = elm.getBoundingClientRect();
-    Vortex.open({ x: r.left + r.width / 2, y: r.top + r.height / 2, r: Math.min(r.width, r.height) / 2 }, viaKeyboard);
-  }
-  // e.detail === 0 means the click came from the keyboard (Enter/Space)
-  document.getElementById("menuBtn").addEventListener("click", (e) => openFrom(e.currentTarget, e.detail === 0));
-  view.addEventListener("click", (e) => {
-    const orb = e.target.closest("#orbBtn");
-    if (orb) setTimeout(() => openFrom(orb, e.detail === 0), reduce ? 0 : 160); // let the splash land first
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key.toLowerCase() === "m" && !e.metaKey && !e.ctrlKey && !e.altKey && !/input|textarea/i.test(e.target.tagName)) openFrom(document.getElementById("orbBtn") || document.getElementById("menuBtn"), true);
-  });
-
-  /* ---------------- Theme switch ---------------- */
-  const sw = document.getElementById("themeSwitch");
-  const getTheme = () => document.documentElement.getAttribute("data-theme");
-  function setTheme(t) {
-    document.documentElement.setAttribute("data-theme", t);
-    try { localStorage.setItem("sk-theme", t); } catch (e) {}
-    sw.setAttribute("aria-checked", String(t === "dark"));
-    Effects.refreshColors();
-  }
-  sw.setAttribute("aria-checked", String(getTheme() === "dark"));
-  sw.addEventListener("click", () => {
-    const next = getTheme() === "dark" ? "light" : "dark";
-    if (!document.startViewTransition || reduce) return setTheme(next);
-    const r = sw.getBoundingClientRect();
-    const x = r.left + r.width / 2, y = r.top + r.height / 2;
-    const R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-    const style = document.createElement("style");
-    style.textContent = "*,*::before,*::after{transition:none!important}";
-    const vt = document.startViewTransition(() => { document.head.appendChild(style); setTheme(next); });
-    vt.ready.then(() => {
-      document.documentElement.animate(
-        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${R}px at ${x}px ${y}px)`] },
-        { duration: 800, easing: "cubic-bezier(.65,0,.35,1)", pseudoElement: "::view-transition-new(root)" }
-      );
-    });
-    vt.finished.finally(() => style.remove());
-  });
-
-  /* ---------------- Per-page wiring ---------------- */
-  function hydrate(route) {
+  /** Extras once a tab is showing: highlight a role, or open a project's pop-up */
+  function afterArrive(route) {
     if (route.tab === "experience" && route.sub) {
       const card = view.querySelector(`#exp-${CSS.escape(route.sub)} .exp-card`);
-      if (card) {
-        setTimeout(() => {
-          card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
-          card.classList.add("focus");
-          setTimeout(() => card.classList.remove("focus"), 2600);
-        }, 500);
-      }
+      if (!card) return;
+      card.classList.add("in");
+      card.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "center" });
+      card.classList.add("focus");
+      setTimeout(() => card.classList.remove("focus"), 2600);
     }
-    if (route.tab === "skills") wireSkills(route.sub);
+    if (route.tab === "projects" && route.sub) openProject(route.sub);
+  }
 
+  /* ---------------- Top tabs ---------------- */
+  const tabLinks = [...document.querySelectorAll("#topnav a")];
+  function showTab(tab) {
+    tabLinks.forEach((a) => {
+      const on = a.dataset.tab === tab;
+      a.classList.toggle("on", on);
+      if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+  }
+  tabLinks.forEach((a) =>
+    a.addEventListener("click", (e) => {
+      // the tab you're already on: back to its top
+      if (current && a.dataset.tab === current.tab) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: reduce ? "instant" : "smooth" });
+      }
+    })
+  );
+
+  /* ---------------- Pop-ups: a project's summary + GitHub link, or a brain region's skills ---------------- */
+  let popEl = null, popOpener = null;
+  const openProject = (id) => openPop(Views.projectPopup(id));
+  function openSkills(id) {
+    if (!openPop(Views.skillPopup(id))) return;
+    SkillBrain.hold(id); // the region stays lit while its skills are showing
+  }
+  function openPop(html) {
+    closeProject();
+    if (!html) return false;
+    popOpener = document.activeElement;
+    popEl = document.createElement("div");
+    popEl.className = "pop";
+    popEl.innerHTML = html;
+    document.body.appendChild(popEl);
+    lockScroll(true);
+    popEl.addEventListener("click", (e) => { if (e.target === popEl || e.target.closest(".pop-close")) closeProject(); });
+    requestAnimationFrame(() => popEl && popEl.classList.add("open"));
+    popEl.querySelector(".pop-close").focus({ preventScroll: true });
+    return true;
+  }
+  /** the page behind an open pop-up can't scroll (the scrollbar's width is kept, so nothing shifts) */
+  function lockScroll(on) {
+    const root = document.documentElement;
+    if (on) document.body.style.paddingRight = window.innerWidth - root.clientWidth + "px";
+    else document.body.style.paddingRight = "";
+    root.classList.toggle("pop-open", on);
+  }
+  function closeProject() {
+    if (!popEl) return;
+    const el = popEl;
+    popEl = null;
+    el.classList.remove("open");
+    SkillBrain.hold(null);
+    lockScroll(false);
+    setTimeout(() => el.remove(), reduce ? 0 : 300);
+    if (popOpener && popOpener.isConnected) popOpener.focus({ preventScroll: true });
+  }
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeProject(); });
+  // project cards open the pop-up in place
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#/projects/"]');
+    if (!a || !view.contains(a)) return;
+    e.preventDefault();
+    openProject(decodeURIComponent(a.getAttribute("href").split("/")[2]));
+  });
+
+  function wire() {
     view.querySelectorAll("[data-copy]").forEach((btn) =>
       btn.addEventListener("click", async () => {
         try { await navigator.clipboard.writeText(btn.dataset.copy); } catch (e) { return; }
@@ -146,61 +147,6 @@
         setTimeout(() => btn.classList.remove("copied"), 1400);
       })
     );
-  }
-
-  function wireSkills(focus) {
-    const seg = view.querySelector(".seg");
-    const segBlob = seg.querySelector(".seg-blob");
-    const buttons = [...seg.querySelectorAll("button")];
-    const panels = [...view.querySelectorAll(".skills-panel")];
-    const flow = view.querySelector(".skill-flow");
-    const chipsEls = [...view.querySelectorAll(".skill-chip")];
-
-    const placeBlob = () => {
-      const b = buttons.find((x) => x.getAttribute("aria-selected") === "true");
-      segBlob.style.width = b.offsetWidth + "px";
-      segBlob.style.transform = `translateX(${b.offsetLeft - 5}px)`;
-    };
-    function setMode(mode) {
-      buttons.forEach((b) => b.setAttribute("aria-selected", String(b.dataset.mode === mode)));
-      panels.forEach((p) => {
-        const show = p.dataset.panel === mode;
-        p.hidden = !show;
-        if (show) {
-          p.style.animation = "none"; p.offsetHeight; p.style.animation = "";
-          p.querySelectorAll(".reveal").forEach((r) => r.classList.add("in"));
-        }
-      });
-      placeBlob();
-      if (mode === "skill" && !chipsEls.some((c) => c.classList.contains("on"))) select(S.skills[0].name);
-    }
-    function select(name, fromUser) {
-      chipsEls.forEach((c) => c.classList.toggle("on", c.dataset.skill === name));
-      flow.innerHTML = Views.skillFlow(name);
-      if (!reduce) flow.animate([{ opacity: 0.4, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 450, easing: "cubic-bezier(.22,1,.36,1)" });
-      const hash = "#/skills/" + encodeURIComponent(name);
-      history.replaceState(null, "", hash);
-      current = parse(hash);
-      if (fromUser && innerWidth < 1000) flow.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-
-    buttons.forEach((b) => b.addEventListener("click", () => {
-      setMode(b.dataset.mode);
-      if (b.dataset.mode === "project") { history.replaceState(null, "", "#/skills"); current = parse("#/skills"); }
-    }));
-    chipsEls.forEach((c) => c.addEventListener("click", () => select(c.dataset.skill, true)));
-    view.querySelectorAll("[data-goto-skill]").forEach((c) =>
-      c.addEventListener("click", () => {
-        setMode("skill");
-        select(c.dataset.gotoSkill, true);
-        window.scrollTo({ top: seg.getBoundingClientRect().top + scrollY - 110, behavior: "smooth" });
-      })
-    );
-
-    if (focus && S.skills.some((s) => s.name === focus)) { setMode("skill"); select(focus); }
-    else if (focus) setMode("skill");
-    requestAnimationFrame(placeBlob);
-    document.fonts && document.fonts.ready.then(placeBlob);
   }
 
   /* ---------------- Boot ---------------- */

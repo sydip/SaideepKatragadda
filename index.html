@@ -1,49 +1,34 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Saideep Katragadda</title>
   <meta name="description" content="Saideep Katragadda — Computer Science at Texas A&M. Software engineering, machine learning, and analytics projects." />
-  <script>
-    // Apply saved theme before paint to avoid a flash
-    (function () {
-      var t = null;
-      try { t = localStorage.getItem("sk-theme"); } catch (e) {}
-      if (!t) t = "light";
-      document.documentElement.setAttribute("data-theme", t);
-    })();
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Ambient water background -->
+  <!-- Ambient circuit background -->
   <div class="ambient" aria-hidden="true">
-    <div class="caustics"></div>
-    <canvas id="bubbles"></canvas>
+    <div class="glow"></div>
+    <canvas id="circuit"></canvas>
   </div>
+  <canvas id="scene" aria-hidden="true"></canvas>
 
-  <!-- Theme switch (top right) -->
-  <header class="dock">
-    <button class="theme-switch" id="themeSwitch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
-      <span class="ts-track">
-        <span class="ts-waves" aria-hidden="true"></span>
-        <span class="ts-stars" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="ts-thumb">
-          <svg class="ts-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><g stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-          <svg class="ts-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
-        </span>
-      </span>
-    </button>
-  </header>
-
-  <!-- Opens the water wheel from pages other than Home (Home uses the big orb) -->
-  <button class="fab-orb" id="menuBtn" aria-haspopup="dialog" aria-label="Open navigation">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0M12 7.5a4.5 4.5 0 1 1-4.5 4.5M12 3a9 9 0 1 1-9 9"/></svg>
-  </button>
+  <!-- Tabs along the top: each one is its own page -->
+  <nav class="topnav" id="topnav" aria-label="Sections">
+    <div class="tn-track">
+      <a href="#/home" data-tab="home">Home</a>
+      <a href="#/about" data-tab="about">About</a>
+      <a href="#/experience" data-tab="experience">Experience</a>
+      <a href="#/projects" data-tab="projects">Projects</a>
+      <a href="#/skills" data-tab="skills">Skills</a>
+      <a href="#/contact" data-tab="contact">Contact</a>
+    </div>
+  </nav>
 
   <!-- Routed views render here -->
   <main id="view" class="view" tabindex="-1"></main>
@@ -53,8 +38,10 @@
 
   <script src="js/data.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/circuit.js"></script>
   <script src="js/transitions.js"></script>
-  <script src="js/water.js"></script>
+  <script src="js/head.js"></script>
+  <script src="js/skillbrain.js"></script>
   <script src="js/views.js"></script>
   <script src="js/app.js"></script>
 </body>
