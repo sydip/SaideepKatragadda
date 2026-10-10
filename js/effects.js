@@ -4,17 +4,10 @@
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Scroll reveal ---------- */
-  let io;
-  function observeReveals(root) {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(
-      (entries) => entries.forEach((en) => {
-        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
-      }),
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-    );
-    root.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  /* ---------- Reveal: everything on a tab fades in as soon as it opens (staggered by --d), not as you scroll to it ---------- */
+  function revealAll(root) {
+    const els = root.querySelectorAll(".reveal");
+    requestAnimationFrame(() => requestAnimationFrame(() => els.forEach((el) => el.classList.add("in"))));
   }
 
   /* ---------- Count-up numbers ---------- */
@@ -87,7 +80,7 @@
   window.Effects = {
     reduce,
     hydrate(root) {
-      observeReveals(root);
+      revealAll(root);
       initCounters(root);
       initTyper(root);
       initTilt(root);

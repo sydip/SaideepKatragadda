@@ -2,7 +2,7 @@
    SKILL BRAIN — the skills tab's diagram: the low-poly brain, split into six
    regions, one per skill category (frontal lobe = machine learning, and so
    on). Hovering a region lights it up; clicking it, or its label, opens that
-   category's skills. The brain sways gently, with signals running through
+   category's skills. The brain holds still, with signals running through
    it as short lines of light.
    ========================================================================== */
 (function () {
@@ -181,7 +181,7 @@
   const SLOTS = { ml: [-1.38, -0.5], data: [-1.38, 0.08], backend: [-1.38, 0.62], languages: [1.38, -0.5], frontend: [1.38, 0.08], tools: [1.38, 0.62] };
 
   let stage = null, canvas = null, ctx = null, tags = [], onPick = null, active = false;
-  let W = 0, H = 0, dpr = 1, last = 0, phase = 0, hover = null, held = null, BP = null, pulses = [], col = {};
+  let W = 0, H = 0, dpr = 1, last = 0, hover = null, held = null, BP = null, pulses = [], col = {};
   let bcx = 0, bcy = 0, bs = 0, stacked = false;
   const probe = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
   const rgba = (color, a) => { probe.clearRect(0, 0, 1, 1); probe.fillStyle = color; probe.fillRect(0, 0, 1, 1); const [r, g, b] = probe.getImageData(0, 0, 1, 1).data; return `rgba(${r},${g},${b},${a})`; };
@@ -251,9 +251,8 @@
     bcx = W / 2; bcy = H / 2;
     const t = now / 1000, dark = isDark(), lit = held || hover;
 
-    // a gentle sway that keeps the side view (it holds still while you point at it)
-    if (!hover && !reduce) phase += dt * 0.45;
-    const yaw = Math.PI + 0.3 * Math.sin(phase), pitch = reduce ? 0 : 0.04 * Math.sin(t * 0.37);
+    // a fixed side view: the brain holds still
+    const yaw = Math.PI, pitch = 0;
     BP = brain.V.map((v) => projO(v, bcx, bcy, bs, yaw, pitch));
     // no background lines behind the brain: cut them away inside its outline (in screen coordinates)
     window.Circuit.setMask({ poly: brain.outline.map((i) => [BP[i][0] + r.left, BP[i][1] + r.top]), alpha: 1 });
