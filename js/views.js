@@ -163,7 +163,7 @@
     const roles = S.experience.filter((e) => e.current).concat(S.experience.filter((e) => !e.current));
     return `
     <section class="page section" id="sec-experience" data-sec="experience">
-      ${pageHead("02", "Experience", "Experience", "")}
+      ${pageHead("02", "Experience", "Where I've Worked", "")}
       <div class="exp-grid">
         ${roles
           .map(

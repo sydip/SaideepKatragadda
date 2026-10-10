@@ -75,7 +75,7 @@ window.SITE = {
       role: "Undergraduate Researcher",
       org: "Texas A&M University",
       location: "College Station, TX",
-      dates: "Sep 2026 – Present",
+      dates: "Oct 2026 – Present",
       current: true,
       summary: "Agent-based modeling of exoskeleton adoption in construction.",
       bullets: [
