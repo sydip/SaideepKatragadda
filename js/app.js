@@ -112,11 +112,11 @@
     popEl.querySelector(".pop-close").focus({ preventScroll: true });
     return true;
   }
-  /** the page behind an open pop-up can't scroll (the scrollbar's width is kept, so nothing shifts) */
+  /** the page behind an open pop-up can't scroll; if it had a scrollbar, its space stays reserved so nothing shifts */
   function lockScroll(on) {
     const root = document.documentElement;
-    if (on) document.body.style.paddingRight = window.innerWidth - root.clientWidth + "px";
-    else document.body.style.paddingRight = "";
+    if (on) root.classList.toggle("pop-gutter", window.innerWidth - root.clientWidth > 0);
+    else root.classList.remove("pop-gutter");
     root.classList.toggle("pop-open", on);
   }
   function closeProject() {

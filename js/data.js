@@ -224,8 +224,8 @@ window.SITE = {
       tagline: "This site: a low-poly wireframe head, a clickable skills brain and tabbed pages, built from scratch with HTML, CSS and canvas.",
       stack: ["JavaScript", "HTML/CSS", "Canvas 2D", "GitHub Pages"],
       stats: [
-        { value: 60, label: "FPS animation" },
-        { text: "0", label: "Frameworks or build step" },
+        { value: 34, label: "Skills mapped in an interactive brain" },
+        { value: 6, label: "Projects with full write-ups" },
       ],
       bullets: [
         "Built a single-page portfolio in <b>vanilla JavaScript, HTML and CSS</b> with no framework or build step, deployed on <b>GitHub Pages</b>.",
