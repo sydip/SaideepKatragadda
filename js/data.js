@@ -137,7 +137,7 @@ window.SITE = {
     },
     {
       id: "senna",
-      github: "", // paste the repo URL here
+      github: "https://github.com/DevinT7/F1-Project",
       name: "Senna",
       kicker: "Formula 1 Telemetry Platform",
       dates: "Jul 2026 – Aug 2026",
