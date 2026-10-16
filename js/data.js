@@ -117,7 +117,6 @@ window.SITE = {
       github: "https://github.com/sydip/CourtVision",
       name: "CourtVision",
       kicker: "NBA Analytics Platform",
-      dates: "Jun 2026 – Aug 2026",
       tagline: "Full-stack NBA analytics with a random-forest prediction engine and Monte Carlo playoff simulation.",
       stack: ["Python", "JavaScript", "TypeScript", "PostgreSQL", "FastAPI", "Next.js", "Docker"],
       stats: [
@@ -140,7 +139,6 @@ window.SITE = {
       github: "https://github.com/DevinT7/F1-Project",
       name: "Senna",
       kicker: "Formula 1 Telemetry Platform",
-      dates: "Jul 2026 – Aug 2026",
       tagline: "Telemetry pipelines, tire-degradation forecasting, and an AI race engineer.",
       stack: ["React", "TypeScript", "Python", "FastAPI", "Tailwind CSS"],
       stats: [
@@ -159,7 +157,6 @@ window.SITE = {
       github: "https://github.com/sydip/Gridiron",
       name: "Gridiron",
       kicker: "NFL Against-the-Spread Analytics",
-      dates: "Aug 2026 – Sep 2026",
       tagline: "Leakage-safe NFL ATS modeling with walk-forward validation and a 737-test suite.",
       stack: ["Python", "Pandas", "Scikit-Learn", "Seaborn", "FastAPI", "React", "TypeScript"],
       stats: [
@@ -181,7 +178,6 @@ window.SITE = {
       github: "https://github.com/TAMU-Aggie-Data-Science-Club/fall2026-pixel-pathology",
       name: "Pixel Pathology",
       kicker: "Interpretable Medical Imaging · ADSC",
-      dates: "Sep 2026 – Present",
       tagline: "A CNN medical image classifier that shows its work with Grad-CAM heatmaps.",
       stack: ["Python", "PyTorch", "TensorFlow", "CNNs", "Git/GitHub"],
       stats: [
@@ -200,7 +196,6 @@ window.SITE = {
       github: "https://github.com/Pri1s/cosmos",
       name: "Cosmos",
       kicker: "NASA Knowledge Graph",
-      dates: "Mar 2026",
       tagline: "An interactive spiral-galaxy knowledge graph of NASA exoplanets and missions, with an AI guide.",
       stack: ["React", "Vite", "D3.js", "JavaScript", "HTML/CSS"],
       stats: [
@@ -220,7 +215,6 @@ window.SITE = {
       github: "https://github.com/sydip/SaideepKatragadda",
       name: "Portfolio",
       kicker: "Interactive Portfolio Website",
-      dates: "Oct 2026",
       tagline: "This site: a low-poly wireframe head, a clickable skills brain and tabbed pages, built from scratch with HTML, CSS and canvas.",
       stack: ["JavaScript", "HTML/CSS", "Canvas 2D", "GitHub Pages"],
       stats: [

@@ -209,7 +209,7 @@
 
       <header class="pp-hero">
         <div class="pp-copy">
-          <p class="pp-kicker reveal">${p.kicker} · ${p.dates}</p>
+          <p class="pp-kicker reveal">${p.kicker}</p>
           <h1 class="pp-title">${splitWord(p.name)}</h1>
           <p class="pp-tag reveal" style="--d:2">${p.tagline}</p>
           <div class="chips reveal" style="--d:3">${chips(p.stack)}</div>
@@ -335,7 +335,7 @@
     return `
       <div class="pop-card wide" role="dialog" aria-modal="true" aria-labelledby="pop-title">
         <button class="pop-close" aria-label="Close">${I.close}</button>
-        <p class="pc-kicker">${p.kicker} · ${p.dates}</p>
+        <p class="pc-kicker">${p.kicker}</p>
         <h3 class="pop-title" id="pop-title">${p.name}</h3>
         <p class="pc-tag">${p.tagline}</p>
         <h4 class="pop-sub">What I built</h4>
