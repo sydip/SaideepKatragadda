@@ -147,13 +147,12 @@ window.SITE = {
       stats: [
         { text: "19.8M+", label: "Telemetry samples" },
         { value: 26955, label: "Laps ingested" },
-        { value: 1290, suffix: "+", label: "Tests at 90%+ coverage" },
+        { text: "±35 ms", label: "Lap alignment" },
+        { value: 1290, suffix: "+", label: "Tests" },
+        { value: 90, suffix: "%+", label: "Test coverage" },
         { text: "0.37 s", label: "Tire-deg forecast MAE" },
         { value: 89, suffix: " ms", label: "p95 cached comparisons" },
         { value: 26649, label: "Load-test requests, 0 errors" },
-        { value: 93, suffix: "%", label: "Tire deg & lap pace accuracy" },
-        { value: 5, label: "Telemetry channels modeled" },
-        { text: "AI", label: "Race-engineer coaching" },
       ],
       bullets: [
         "Engineered a full-stack F1 telemetry analytics platform ingesting <b>19.8M+ samples</b> across <b>26,955 laps</b> into <b>PostgreSQL/TimescaleDB</b>, with <b>±35 ms lap alignment</b> and a <b>1,290+ test suite</b> at <b>90%+ coverage</b>.",
