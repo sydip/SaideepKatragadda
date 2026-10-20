@@ -42,7 +42,7 @@ window.SITE = {
     organizations: ["Aggie Data Science Club (ADSC)", "Maroon Investment Club"],
     coursework: [
       { code: "ENGR 102", name: "Python Computation" },
-      { code: "ISTM 209", name: "Information Systems Concepts" },
+      { code: "ISTM 209", name: "Business Information Systems Concepts" },
       { code: "CSCE 222", name: "Discrete Structures" },
       { code: "CSCE 120", name: "Program Design and Concepts" },
       { code: "CSCE 221", name: "Data Structures and Algorithms" },
@@ -66,8 +66,9 @@ window.SITE = {
       current: true,
       summary: "Leading a team forecasting airline market demand for Network Planning.",
       bullets: [
-        "Leading a <b>team of 6</b> working with <b>American Airlines</b> to predict how many people will want to fly to different places <b>up to two years ahead</b>, to help the airline's route-planning team.",
-        "Guiding the team on which factors, like regional and population trends, drive travel demand, and checking our predictions against what actually happened in past years.",
+        "Leading a <b>team of 6</b> working with <b>American Airlines</b> to build a <b>time-series forecasting model</b> that predicts how many people will want to fly to different places <b>up to two years ahead</b>, for the airline's <b>Network Planning</b> team.",
+        "Building an <b>XGBoost regression baseline</b> on <b>300K+ flight records</b> that reaches <b>R² = 0.974</b> (MAE ≈ 2.1K) on a <b>60K-record holdout set</b>; feature-importance analysis shows <b>cabin class drives ~91%</b> of the model's gain.",
+        "Guiding the team on which factors, like <b>GDD</b>, regional and population (demographic) trends, drive travel demand, and checking our predictions against what actually happened in past years.",
       ],
     },
     {
@@ -79,8 +80,8 @@ window.SITE = {
       current: true,
       summary: "Agent-based modeling of exoskeleton adoption in construction.",
       bullets: [
-        "Building a <b>computer simulation</b> of how construction workers and crews decide whether to start, and keep, using <b>wearable exoskeletons</b>: assistive suits that reduce physical strain on the job.",
-        "Basing the simulation on published studies and expert input, then testing it to find <b>what makes workers stick with the technology</b> or give it up.",
+        "Building an <b>agent-based model</b> (<b>Python</b>, <b>NetLogo</b>) of how construction workers and crews decide whether to start, and keep, using <b>wearable exoskeletons</b>: assistive suits that reduce physical strain on the job.",
+        "Basing the simulation's parameters on published studies and expert input, then running <b>sensitivity analysis</b> to find <b>what drives long-term adoption</b> versus discontinuation: what makes workers stick with the technology or give it up.",
       ],
     },
     {
@@ -92,8 +93,9 @@ window.SITE = {
       current: false,
       summary: "AI automation agents and meeting intelligence inside Azure DevOps.",
       bullets: [
-        "Built <b>AI assistants</b> that took over routine project-management work for software teams, and a tool that turned <b>Microsoft Teams meetings</b> into written summaries of decisions and next steps.",
-        "Fixed an issue that was causing some <b>loan requests to fail</b>, and automated manual project-tracking work to save the team time and keep records accurate.",
+        "Built <b>AI-powered automation agents</b> in <b>Azure DevOps</b> that took over routine project-management work for software teams, like <b>sprint management and backlog tracking</b>.",
+        "Built a <b>meeting intelligence pipeline</b> that transcribed <b>Microsoft Teams meetings</b> and published AI-generated summaries of decisions and next steps to the project wikis.",
+        "Diagnosed and fixed an issue that was causing some <b>loan requests to fail</b> in a banking <b>loan imaging API</b>.",
       ],
     },
     {
@@ -105,8 +107,9 @@ window.SITE = {
       current: true,
       summary: "ML trading signals during market dislocations.",
       bullets: [
-        "Built a <b>machine-learning tool</b> that spots good moments to buy and sell stocks when the market swings sharply, designed to keep working on new data, not just the history it learned from.",
+        "Built a <b>dual-model XGBoost</b> classification system in <b>Python</b> that spots good moments to buy and sell stocks when the market swings sharply (market dislocations).",
         "Tested on past market data, it earned a <b>36% return</b>, compared with <b>14% for the S&amp;P 500</b>.",
+        "Built a <b>feature-engineering pipeline</b> from <b>RSI</b>, the <b>VIX</b>, moving averages and momentum indicators, and used <b>SMOTE</b> class balancing with <b>walk-forward validation</b> to reduce overfitting and improve out-of-sample performance.",
       ],
     },
   ],
@@ -118,7 +121,7 @@ window.SITE = {
       name: "CourtVision",
       kicker: "NBA Analytics Platform",
       tagline: "Full-stack NBA analytics with a random-forest prediction engine and Monte Carlo playoff simulation.",
-      stack: ["Python", "JavaScript", "TypeScript", "PostgreSQL", "FastAPI", "Next.js", "Docker"],
+      stack: ["Python", "Scikit-Learn", "JavaScript", "TypeScript", "PostgreSQL", "FastAPI", "Next.js", "Docker"],
       stats: [
         { value: 131000, suffix: "+", label: "Player game logs" },
         { value: 6151, label: "Games ingested" },
@@ -139,17 +142,22 @@ window.SITE = {
       github: "https://github.com/DevinT7/F1-Project",
       name: "Senna",
       kicker: "Formula 1 Telemetry Platform",
-      tagline: "Telemetry pipelines, tire-degradation forecasting, and an AI race engineer.",
-      stack: ["React", "TypeScript", "Python", "FastAPI", "Tailwind CSS"],
+      tagline: "Telemetry pipelines on TimescaleDB, tire-degradation forecasting, and a fact-validated AI race engineer.",
+      stack: ["React", "TypeScript", "Python", "FastAPI", "Tailwind CSS", "PostgreSQL / TimescaleDB", "Redis", "Docker", "Prometheus"],
       stats: [
+        { text: "19.8M+", label: "Telemetry samples" },
+        { value: 26955, label: "Laps ingested" },
+        { value: 1290, suffix: "+", label: "Tests at 90%+ coverage" },
+        { text: "0.37 s", label: "Tire-deg forecast MAE" },
+        { value: 89, suffix: " ms", label: "p95 cached comparisons" },
+        { value: 26649, label: "Load-test requests, 0 errors" },
         { value: 93, suffix: "%", label: "Tire deg & lap pace accuracy" },
         { value: 5, label: "Telemetry channels modeled" },
         { text: "AI", label: "Race-engineer coaching" },
       ],
       bullets: [
-        "Designed a <b>Formula 1 analytics platform</b> that processes per-race telemetry to power interactive driver-performance and race-comparison dashboards.",
-        "Engineered <b>telemetry pipelines</b> and a predictive ML model using braking, throttle, speed, gear, and cornering data to forecast <b>tire degradation and lap pace with 93% accuracy</b>.",
-        "Integrated an <b>AI-powered race engineer</b> that converts validated telemetry into coaching insights, performance summaries, and race-strategy recommendations through scalable backend APIs.",
+        "Engineered a full-stack F1 telemetry analytics platform ingesting <b>19.8M+ samples</b> across <b>26,955 laps</b> into <b>PostgreSQL/TimescaleDB</b>, with <b>±35 ms lap alignment</b> and a <b>1,290+ test suite</b> at <b>90%+ coverage</b>.",
+        "Designed a <b>tire-degradation forecaster</b> (<b>0.37 s MAE</b>, leave-one-race-out validated) and a <b>fact-validated AI engineer</b>, serving cached comparisons at <b>89 ms p95</b> with <b>0 errors</b> across <b>26,649 load-test requests</b>.",
       ],
     },
     {
@@ -178,17 +186,22 @@ window.SITE = {
       github: "https://github.com/TAMU-Aggie-Data-Science-Club/fall2026-pixel-pathology",
       name: "Pixel Pathology",
       kicker: "Interpretable Medical Imaging · ADSC",
-      tagline: "A CNN medical image classifier that shows its work with Grad-CAM heatmaps.",
-      stack: ["Python", "PyTorch", "TensorFlow", "CNNs", "Git/GitHub"],
+      tagline: "A CNN skin-lesion classifier that shows its work with Grad-CAM heatmaps.",
+      stack: ["Python", "PyTorch", "TensorFlow", "Pandas", "Streamlit", "CNNs", "Git/GitHub"],
       stats: [
+        { value: 10015, label: "HAM10000 images" },
+        { value: 7, label: "Lesion classes" },
+        { value: 7470, label: "Unique lesions, leakage-safe splits" },
+        { text: "58:1", label: "Class imbalance handled" },
         { text: "CNN", label: "Transfer-learned classifier" },
         { text: "Grad-CAM", label: "Explainability" },
         { text: "Transfer", label: "Learning strategy" },
       ],
       bullets: [
-        "Building an interpretable <b>CNN medical image classifier</b> in <b>PyTorch</b> using <b>transfer learning</b> and <b>data augmentation</b>.",
-        "Generating <b>Grad-CAM heatmaps</b> that highlight the image regions driving each prediction, so model decisions can be inspected.",
-        "Handling image preprocessing and augmentation, with <b>GitHub-based collaborative</b> model development across the ADSC team.",
+        "Building an interpretable <b>CNN medical image classifier</b> in <b>PyTorch</b> with <b>data augmentation</b>: a skin-lesion classifier trained on <b>10,015 HAM10000 images</b> across <b>7 classes</b>.",
+        "Fine-tuning <b>ResNet50</b> and <b>EfficientNet-B0</b> with <b>two-stage transfer learning</b>.",
+        "Generating <b>Grad-CAM heatmaps</b> that highlight the image regions driving each prediction, so model decisions can be inspected, and showing them in a <b>Streamlit demo</b>.",
+        "Building a <b>leakage-safe data pipeline</b> that groups <b>7,470 unique lesions</b> into seeded train/val/test splits and handles a <b>58:1 class imbalance</b> (67% nevi) with class-balanced sampling, scored on <b>macro F1</b> and <b>balanced accuracy</b>.",
       ],
     },
     {
@@ -218,7 +231,7 @@ window.SITE = {
       tagline: "This site: a low-poly wireframe head, a clickable skills brain and tabbed pages, built from scratch with HTML, CSS and canvas.",
       stack: ["JavaScript", "HTML/CSS", "Canvas 2D", "GitHub Pages"],
       stats: [
-        { value: 34, label: "Skills mapped in an interactive brain" },
+        { value: 35, label: "Skills mapped in an interactive brain" },
         { value: 6, label: "Projects with full write-ups" },
       ],
       bullets: [
@@ -244,7 +257,7 @@ window.SITE = {
     { id: "tools", name: "Tools & Testing", region: "Cerebellum", note: "coordination",
       skills: ["Git / GitHub", "Azure DevOps", "pytest", "Vitest", "VS Code", "Eclipse"] },
     { id: "backend", name: "Backend", region: "Brainstem", note: "the backbone everything runs through",
-      skills: ["FastAPI", "PostgreSQL", "Docker", "Postman"] },
+      skills: ["FastAPI", "PostgreSQL", "Redis", "Docker", "Postman"] },
   ],
 
   /* Skills section: how the skills are grouped around the hologram head.
@@ -269,10 +282,10 @@ window.SITE = {
   /* Skill → where it's used. Add / refine freely; links can point at project ids or experience ids. */
   skillCategories: ["Languages", "Frameworks & Libraries", "ML & Data", "Tools & Infrastructure"],
   skills: [
-    { name: "Python", cat: "Languages", links: ["courtvision", "senna", "gridiron", "pixel-pathology", "maroon", "research"] },
+    { name: "Python", cat: "Languages", links: ["courtvision", "senna", "gridiron", "pixel-pathology", "maroon", "research", "american-airlines", "ufcu"] },
     { name: "TypeScript", cat: "Languages", links: ["courtvision", "senna", "gridiron"] },
     { name: "JavaScript", cat: "Languages", links: ["courtvision", "cosmos", "portfolio"] },
-    { name: "SQL", cat: "Languages", links: ["courtvision"] },
+    { name: "SQL", cat: "Languages", links: ["courtvision", "senna"] },
     { name: "HTML/CSS", cat: "Languages", links: ["cosmos", "portfolio"] },
     { name: "Java", cat: "Languages", links: [], note: "Certiport IT Specialist – Java" },
     { name: "C++", cat: "Languages", links: [], note: "CSCE 120 · Program Design and Concepts" },
@@ -296,8 +309,8 @@ window.SITE = {
     { name: "Scikit-Learn", cat: "ML & Data", links: ["courtvision", "gridiron"] },
     { name: "NumPy", cat: "ML & Data", links: ["courtvision", "gridiron"] },
     { name: "joblib", cat: "ML & Data", links: ["courtvision", "gridiron"] },
-    { name: "XGBoost", cat: "ML & Data", links: ["maroon"] },
-    { name: "Pandas", cat: "ML & Data", links: ["gridiron", "courtvision", "american-airlines"] },
+    { name: "XGBoost", cat: "ML & Data", links: ["maroon", "american-airlines"] },
+    { name: "Pandas", cat: "ML & Data", links: ["gridiron", "courtvision", "american-airlines", "pixel-pathology"] },
     { name: "Matplotlib", cat: "ML & Data", links: ["gridiron"] },
     { name: "Seaborn", cat: "ML & Data", links: ["gridiron"] },
     { name: "LLM APIs (Claude / Gemini)", cat: "ML & Data", links: ["courtvision", "cosmos"] },
@@ -305,10 +318,13 @@ window.SITE = {
     { name: "Time-Series Forecasting", cat: "ML & Data", links: ["american-airlines", "senna"] },
     { name: "Walk-Forward Validation", cat: "ML & Data", links: ["gridiron", "maroon"] },
     { name: "Agent-Based Modeling (NetLogo)", cat: "ML & Data", links: ["research"] },
+    { name: "Streamlit", cat: "ML & Data", links: ["pixel-pathology"] },
+    { name: "Sensitivity Analysis", cat: "ML & Data", links: ["research"] },
+    { name: "SMOTE / Class Balancing", cat: "ML & Data", links: ["maroon", "pixel-pathology"] },
 
-    { name: "PostgreSQL", cat: "Tools & Infrastructure", links: ["courtvision"] },
-    { name: "Docker", cat: "Tools & Infrastructure", links: ["courtvision"] },
-    { name: "Git / GitHub", cat: "Tools & Infrastructure", links: ["pixel-pathology", "gridiron", "courtvision", "portfolio"] },
+    { name: "PostgreSQL", cat: "Tools & Infrastructure", links: ["courtvision", "senna"] },
+    { name: "Docker", cat: "Tools & Infrastructure", links: ["courtvision", "senna"] },
+    { name: "Git / GitHub", cat: "Tools & Infrastructure", links: ["pixel-pathology", "gridiron", "courtvision", "portfolio", "senna"] },
     { name: "Azure DevOps", cat: "Tools & Infrastructure", links: ["ufcu"] },
     { name: "Postman", cat: "Tools & Infrastructure", links: ["ufcu"] },
     { name: "pytest", cat: "Tools & Infrastructure", links: ["courtvision", "gridiron"] },
@@ -323,5 +339,9 @@ window.SITE = {
     { name: "Load Testing (k6 / Locust)", cat: "Tools & Infrastructure", links: [] },
     { name: "VS Code", cat: "Tools & Infrastructure", links: [] },
     { name: "Eclipse", cat: "Tools & Infrastructure", links: [] },
+    { name: "Redis", cat: "Tools & Infrastructure", links: ["senna"] },
+    { name: "TimescaleDB", cat: "Tools & Infrastructure", links: ["senna"] },
+    { name: "Prometheus", cat: "Tools & Infrastructure", links: ["senna"] },
+    { name: "Azure Cloud Services", cat: "Tools & Infrastructure", links: ["ufcu"] },
   ],
 };
